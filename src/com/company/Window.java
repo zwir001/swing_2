@@ -17,15 +17,14 @@ public class Window extends JFrame {
     }
     private void build_UI(){
         setBounds(0,0,650,460 );
-        JPanel panel= new JPanel();
+        Kanwa panel= new Kanwa();
         panel.setLayout(null);
         panel.setBounds(0, 0 , 650, 460 );
-
+        add(panel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JButton btn_running= new JButton("Run");
-
 
         btn_running.addMouseListener(new MouseAdapter() {
             @Override
@@ -33,20 +32,21 @@ public class Window extends JFrame {
                     super.mouseEntered(e);
                     if( need_to_run(e.getX()) )
                     run_away(btn_running);
+                    panel.requestFocus(true);
             }
         }
-
         );
         panel.add(btn_running);
         JButton reset=new JButton("Reset");
-        reset.addActionListener(e -> setDefault(reset, btn_running));
+        reset.addActionListener(e -> setDefault(reset, btn_running, panel));
         panel.add(reset);
-        setDefault(reset, btn_running);
-        getContentPane().add(panel);
+        setDefault(reset, btn_running, panel);
     }
-    private void setDefault( JButton reset, JButton run)
+    private void setDefault( JButton reset, JButton run, Kanwa panel)
     {
-        run.setBounds(220, 220, 100, 45);
+        panel.erase_drawing();
+        panel.requestFocus(true);
+        run.setBounds(300, 300, 100, 45);
         reset.setBounds(500, 300, 100,45);
     }
 
